@@ -66,29 +66,58 @@ Helpfulness: Full, Partial, or Missing answers
 Here’s how the repository is organized:
 ```bash
 /benchmarking-framework
+ai-acc-stack/
 │
-├── /data                # Store datasets, benchmarks, and raw inputs
-│   ├── /questions       # Benchmark questions (simple, complex, multimodal)
-│   ├── /ground_truth    # Ground truth answers for benchmarking
-│   └── /outputs         # Model output results from testing
+├── src/                                # Core backend components
+│   └── components/
+│       ├── ingestion/                  # PDF loading, text extraction, chunking
+│       │   ├── pdf_ingestion.py
+│       │   └── chunking.py
+│       │
+│       ├── embeddings/                 # Embedding models (SBERT, Titan, etc.)
+│       │   ├── titan_embedder.py
+│       │   └── sbert_embedder.py
+│       │
+│       ├── vectorstore/                # Vector DB wrappers (Chroma, FAISS, OpenSearch)
+│       │   ├── chroma_wrapper.py
+│       │   ├── faiss_store.py
+│       │   └── opensearch_store.py
+│       │
+│       ├── llm/                        # LLM model integration (Bedrock, HF, etc.)
+│       │   ├── bedrock_llm.py
+│       │   └── prompt_templates.py
+│       │
+│       └── rag/                        # Full RAG pipelines / orchestration logic
+│           ├── pipeline.py
+│           └── qa_workflow.py
 │
-├── /models              # Pre-trained and fine-tuned models
-│   ├── /question-gen    # T5/GPT for question generation
-│   ├── /answer-extraction  # RoBERTa for answer extraction
-│   ├── /fact-checking   # RoBERTa-based or ClaimBuster for hallucination detection
-│   └── /helpfulness     # T5/BERT for helpfulness evaluation
+├── examples/                           # Jupyter notebooks and demo flows
+│   ├── rag_demo.ipynb                  # Full end-to-end RAG notebook
+│   ├── sbert_local_demo.ipynb         # Local SBERT + Chroma test
+│   └── titan_bedrock_demo.ipynb       # Titan + Bedrock version
 │
-├── /notebooks           # Jupyter notebooks for experiments, benchmarks
+├── infra/                              # Terraform remote state config
+│   └── remote-state/
+│       ├── backend.tf
+│       └── s3.tf
 │
-├── /scripts             # Python scripts for core functionality
-│   ├── generate_questions.py   # Script for generating questions using GPT/T5
-│   ├── extract_answer.py       # Script for answer extraction with RoBERTa
-│   ├── fact_check.py           # Script for hallucination detection (RoBERTa or ClaimBuster)
-│   ├── evaluate_helpfulness.py # Script for evaluating helpfulness
-│   └── benchmark_pipeline.py   # The main pipeline to run the benchmarking
+├── src/blueprints/                     # Terraform blueprints for RAG deployment
+│   ├── bedrock_assistant.tf
+│   ├── vector_db.tf
+│   └── s3_ingestion.tf
 │
-├── requirements.txt     # Python dependencies for the project
-└── README.md            # Project documentation
+├── scripts/                            # CLI tools and utilities
+│   ├── docker/
+│   │   ├── Dockerfile
+│   │   └── entrypoint.sh
+│   └── deploy.sh                       # One-command infra deployment
+│
+├── .env                                # Environment config (optional)
+├── .gitignore
+├── requirements.txt                    # Python dependencies
+├── docker-compose.yml                  # Multi-service local dev setup
+├── README.md
+└── LICENSE
 ```
 ### ⚡ Models and Algorithms Used
 
