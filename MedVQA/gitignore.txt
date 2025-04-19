@@ -1,0 +1,29 @@
+# Byte-compiled / cache files
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# IDE / Editor folders
+.vscode/
+.idea/
+
+# Logs and builds
+*.log
+dist/
+build/
+
+# OS-generated
+.DS_Store
+
+# Large data/model files
+*.npy
+*.pt
+*.pth
+*.h5
+*.zip

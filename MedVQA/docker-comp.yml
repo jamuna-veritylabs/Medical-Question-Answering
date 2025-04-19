@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  rag-dev:
+    build:
+      context: .
+      dockerfile: scripts/docker/Dockerfile
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    env_file:
+      - .env

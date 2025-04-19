@@ -1,0 +1,10 @@
+# Add required packages here
+boto3
+PyPDF2
+langchain
+chromadb
+faiss-cpu
+sentence-transformers
+opensearch-py
+python-dotenv
+botocore>=1.31.0
