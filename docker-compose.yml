@@ -1,0 +1,98 @@
+version: "3.8"
+
+services:
+  # unstructured_base:
+  #   platform: linux/arm64
+  #   build:
+  #     context: ../unstructured-app
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - PORT=8000
+  #   ports:
+  #     - "80:8000"
+  #   container_name: unstructured_base
+  #   # This container uses the Unstructured base image Dockerfile.
+  
+  # rag_ingestion:
+  #   platform: linux/arm64
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     FASTAPI_APP: "api.unstructured.ingestion_api:app"
+  #     AWS_DEFAULT_REGION: "us-east-1"
+  #   volumes:
+  #     - ~/.aws:/root/.aws
+  #   ports:
+  #     - "8081:80"
+  #   container_name: rag_ingestion
+
+  rag-generation:
+    platform: linux/arm64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FASTAPI_APP: "src.api.main:app"
+      AWS_DEFAULT_REGION: "us-east-1"
+      PORT: "80"
+    env_file:
+      - .env
+    volumes:
+      - ~/.aws:/root/.aws
+    ports:
+      - "8083:80"
+    container_name: rag-generation
+
+  # tabular-generation:
+  #   platform: linux/arm64
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     FASTAPI_APP: "api.tabular.tab_api:app"
+  #     AWS_DEFAULT_REGION: "us-east-1"
+  #     PORT: "80"
+  #   volumes:
+  #     - ~/.aws:/root/.aws
+  #   ports:
+  #     - "8082:80"
+  #   container_name: tabular-generation
+  #   container_name: rag_retrieval
+
+  # rag-generation:
+  #   platform: linux/arm64
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     FASTAPI_APP: "src.components.rag_generation.generation_api:app"
+  #     AWS_DEFAULT_REGION: "us-east-1"
+  #     PORT: "80"
+  #   volumes:
+  #     - ~/.aws:/root/.aws
+  #   ports:
+  #     - "8083:80"
+  #   container_name: rag-generation
+
+  # tellus-openwebui:
+  #   platform: linux/arm64
+  #   build:
+  #     context: ../tellus-openwebui
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     AWS_DEFAULT_REGION: "us-east-1"
+  #     MEMORY: "1024"
+  #     CPU: "256"
+  #     STORAGE_PROVIDER: "s3"  # Use Amazon S3 as the storage backend
+  #     S3_ACCESS_KEY_ID: "${S3_ACCESS_KEY_ID}"  # Load from .env or manually define
+  #     S3_SECRET_ACCESS_KEY: "${S3_SECRET_ACCESS_KEY}"  # Load from .env or manually define
+  #     S3_ENDPOINT_URL: "https://s3.us-east-1.amazonaws.com"  # AWS S3 endpoint
+  #     S3_REGION_NAME: "us-east-1"  # AWS region
+  #     S3_BUCKET_NAME: "120569609191-ui-storage/tellusdemo"  # Your S3 bucket
+  #     ENV: "dev"  # Enables debugging & Swagger API docs      
+  #   volumes:
+  #     - ~/.aws:/root/.aws
+  #   ports:
+  #     - "8084:80"
+  #   container_name: tellus-openwebui  

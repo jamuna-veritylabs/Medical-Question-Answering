@@ -1,0 +1,12 @@
+[project]
+name = "MedicalVQA"
+version = "0.1.0"
+description = "Benchmarking framework for medical QA using RAG"
+authors = [{name = "Jamuna VerityLabs"}]
+
+[tool.setuptools]
+packages = ["src"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

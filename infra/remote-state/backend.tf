@@ -1,13 +1,15 @@
-# Terraform backend config
+variable "aws_region" {
+  description = "The AWS region to deploy resources."
+  type        = string
+  default     = "us-east-1"  # Change as needed
+}
 
-# infra/remote-state/backend.tf
+variable "state_bucket_name" {
+  description = "The name of the S3 bucket to store Terraform state."
+  type        = string
+}
 
-terraform {
-  backend "s3" {
-    bucket         = "my-terraform-state-bucket"  # Change this
-    key            = "ai-acc-stack/terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "terraform-locks"             # Change this
-    encrypt        = true
-  }
+variable "lock_table_name" {
+  description = "The name of the DynamoDB table for state locking."
+  type        = string
 }
