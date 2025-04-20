@@ -5,7 +5,7 @@
 Here’s how the repository is organized:
 ```bash
 /benchmarking-framework
-ai-acc-stack/
+Medical-Question-Answering/
 │
 ├── src/                                # Core backend components
 │   └── components/
